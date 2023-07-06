@@ -12,6 +12,8 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients'
 import { data } from "../../utils/data";
 
 import styles from "./app.module.css";
+import OrderDetails from "../orderDetails/orderDetails";
+import IngredientDetails from "../ingredientDetails/ingredientDetails";
 
 const baseUrl = 'https://norma.nomoreparties.space/api/ingredients'
 
@@ -46,12 +48,14 @@ function App() {
     setIsLoading(true)
 
     fetch(baseUrl)
-      .then((res) => res.json())
-      .then((data) => {
-        setIngredients(data.data)
-        // console.log(data.data);
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
       })
-      .catch((error) => console.log(error))
+      .then(data => setIngredients(data.data))
+      .catch(error => console.log(error))
       .finally(() => setIsLoading(false) )
   }, [])
 
@@ -66,7 +70,6 @@ function App() {
           <main className={styles.main}>
           <BurgerIngredients 
             ingredients={ingredients} 
-            setIngredients={setIngredients} 
             setCardData={setCardData}
             openModal={openModal}
           />
@@ -78,8 +81,13 @@ function App() {
         } 
         {isModalOpen && (
           <>
-            <Modal closeModal={closeModal} cardData={cardData} currentModal={currentModal}/>
-
+            <Modal closeModal={closeModal}>
+              {currentModal === 'OrderDetails' ?
+                <OrderDetails closeModal={closeModal} cardData={cardData} /> :
+                <IngredientDetails closeModal={closeModal} cardData={cardData} /> 
+              }
+            </Modal>
+            
 
             <Overlay setIsModalOpen={setIsModalOpen}/>
           </>

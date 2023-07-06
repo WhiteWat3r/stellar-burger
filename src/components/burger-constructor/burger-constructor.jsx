@@ -19,7 +19,11 @@ function BurgerConstructor({ingredients, openModal}) {
     <section className={constructorStyles.block + ' pt-25 ml-10'}>
    
       <ul className={constructorStyles.list + ' ml-4 pr-4 mb-10'}>
-        <li className='ml-8'>
+
+
+
+
+        <li className='ml-8' >
           <ConstructorElement
             type="top"
             isLocked={true}
@@ -28,18 +32,17 @@ function BurgerConstructor({ingredients, openModal}) {
             thumbnail={ingredients[0].image}
           />
         </li>
-
+      
 
 
         <div className={constructorStyles.nachBlock + ' custom-scroll'}>
           {ingredients.map(ingr => (
             ingr.type !== 'bun' &&
-            <li className={constructorStyles.item + ' pl-8 mb-4'} key={ingr._id}>
+            <li  key={ingr._id} className={constructorStyles.item + ' pl-8 mb-4'}>
               <div className={constructorStyles.itemIcon}>
                 <DragIcon type="primary"/>
               </div>
               <ConstructorElement
-                // key={ingr._id}
                 text={ingr.name}
                 price={ingr.price}
                 thumbnail={ingr.image}
@@ -52,7 +55,7 @@ function BurgerConstructor({ingredients, openModal}) {
 
 
 
-        <li className='ml-8'>
+        <li className='ml-8' >
           <ConstructorElement
             type="bottom"
             isLocked={true}
@@ -61,6 +64,9 @@ function BurgerConstructor({ingredients, openModal}) {
             thumbnail={ingredients[0].image}
           />
         </li>
+
+
+
       </ul>
 
       

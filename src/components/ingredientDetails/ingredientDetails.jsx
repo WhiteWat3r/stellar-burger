@@ -7,12 +7,12 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientDetailsStyles from './ingredientDetails.module.css'
 
 
-function IngredientDetails({onClick, cardData}) {
+function IngredientDetails({closeModal, cardData}) {
   return (
     <div className={IngredientDetailsStyles.modal}>
       <h2 className={IngredientDetailsStyles.title + ' text text_type_main-large mt-10 ml-10'}>Детали ингридиента</h2>
        
-       <button type='button' className={IngredientDetailsStyles.closeButton} onClick={onClick}>
+       <button type='button' className={IngredientDetailsStyles.closeButton} onClick={closeModal}>
          <CloseIcon type="primary" />
        </button> 
            <img className={IngredientDetailsStyles.image} src={cardData.image_large} alt={cardData.name} />

@@ -5,12 +5,15 @@ import PropTypes from 'prop-types'
 import IngredientDetails from '../ingredientDetails/ingredientDetails'
 import OrderDetails from '../orderDetails/orderDetails'
 
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+
+import modalStyles from './modal.module.css';
 
 const modalRoot = document.querySelector('#react-modal')
 
-function Modal({cardData, currentModal, closeModal}) {
+function Modal({children, closeModal}) {
 
-  console.log(currentModal)
+
   useEffect(() => {
     const closeOnEsc = (evt) => {
       if (evt.code === "Escape") {
@@ -23,21 +26,11 @@ function Modal({cardData, currentModal, closeModal}) {
     return () => document.removeEventListener('keydown', closeOnEsc)
   }, [])
 
-
   return ReactDOM.createPortal (
-    (    
-      <>
-
-        {currentModal === 'IngredientDetails' && (
-          <IngredientDetails onClick={closeModal} cardData={cardData} />
-        )}
-
-        {currentModal === 'OrderDetails' && (
-          <OrderDetails onClick={closeModal} cardData={cardData} />
-        )}
-      </>
-
-    ), modalRoot
+    <div>
+      {children}
+    </div>, 
+    modalRoot
   )
 }
 
@@ -45,9 +38,7 @@ function Modal({cardData, currentModal, closeModal}) {
 
 
 Modal.propTypes = {
-  cardData: PropTypes.object,
-  closeModal: PropTypes.func,
-  currentModal: PropTypes.string
+  closeModal: PropTypes.func
 }
 
 
